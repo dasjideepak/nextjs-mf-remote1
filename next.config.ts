@@ -12,10 +12,6 @@ const nextConfig: NextConfig = {
         exposes: {
           "./DashboardApp": "./src/components/DashboardApp",
         },
-        shared: {
-          react: { singleton: true, requiredVersion: false },
-          "react-dom": { singleton: true, requiredVersion: false },
-        },
         extraOptions: {},
       })
     );
