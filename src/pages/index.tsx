@@ -1,5 +1,10 @@
 import DashboardApp from "@/components/DashboardApp";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 export default function Home() {
-  return <DashboardApp />;
+  return (
+    <ErrorBoundary>
+      <DashboardApp />
+    </ErrorBoundary>
+  );
 }
