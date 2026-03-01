@@ -28,7 +28,7 @@ export function useUsers(limit = 10) {
     let cancelled = false;
 
     setLoading(true);
-    fetch(`https://dummyjson.com/users?limit=${limit}`)
+    fetch(`https://dummyjson.com/users?limit=${limit}&skip=50`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json() as Promise<UsersResponse>;

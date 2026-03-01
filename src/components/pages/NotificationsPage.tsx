@@ -1,5 +1,6 @@
 import { Button, Card, Badge, NOTIF_COLORS } from "@dasjideepak/mf-shared-ui";
 import type { SharedDashboardState } from "@dasjideepak/mf-shared-ui";
+import { X } from "lucide-react";
 
 interface NotificationsPageProps {
   sharedState: SharedDashboardState;
@@ -95,19 +96,7 @@ export function NotificationsPage({ sharedState }: NotificationsPageProps) {
                   onClick={() => sharedState.dismissNotification(n.id)}
                   className="shrink-0 rounded p-1 text-gray-400 transition hover:bg-white/60 hover:text-gray-600"
                 >
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18 18 6M6 6l12 12"
-                    />
-                  </svg>
+                  <X className="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>
             );

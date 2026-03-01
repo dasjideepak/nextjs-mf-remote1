@@ -11,6 +11,7 @@
   "dependencies": {
     "@dasjideepak/mf-shared-ui": "^1.0.0",
     "@module-federation/nextjs-mf": "^8.8.56",
+    "lucide-react": "^0.575.0",
     "next": "15.1.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
