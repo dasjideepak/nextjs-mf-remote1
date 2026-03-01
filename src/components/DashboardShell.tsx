@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/compat/router";
 import { useSharedGlobalState } from "@/state/globalState";
 import { useUsers } from "@/hooks/useUsers";
-import type { SharedDashboardState } from "@dasjideepak/mf-shared-ui";
+import type { DashboardSharedState } from "@/types/hostGlobalState";
 import { Bell, Grid2x2, User, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -12,7 +13,7 @@ import {
 } from "@/components/pages";
 
 interface DashboardShellProps {
-  sharedState?: SharedDashboardState;
+  sharedState?: DashboardSharedState;
 }
 
 const BASE_PATH = "/dashboard";
@@ -46,26 +47,34 @@ function NavIcon({ icon }: { icon: NavIconName }) {
 }
 
 export default function DashboardShell({ sharedState }: DashboardShellProps) {
+  const router = useRouter();
   const { state, isLoading } = useSharedGlobalState();
-  const resolvedState =
-    sharedState ?? (state as SharedDashboardState | undefined);
-  const [routeSegment, setRouteSegment] = useState<string>("");
+  const resolvedState: DashboardSharedState | undefined = sharedState ?? state;
+  const [fallbackPathname, setFallbackPathname] = useState("");
+  const routeSegment = getSegmentFromPath(
+    router ? (router.asPath ?? "").split(/[?#]/)[0] ?? "" : fallbackPathname
+  );
   const { users, loading: usersLoading } = useUsers(15);
 
   useEffect(() => {
+    if (router) return;
     if (typeof window === "undefined") return;
-    const sync = () =>
-      setRouteSegment(getSegmentFromPath(window.location.pathname));
+
+    const sync = () => setFallbackPathname(window.location.pathname);
     sync();
     window.addEventListener("popstate", sync);
     return () => window.removeEventListener("popstate", sync);
-  }, []);
+  }, [router]);
 
   const navigate = (segment: RouteSegment) => {
-    if (typeof window === "undefined") return;
     const path = segment ? `${BASE_PATH}/${segment}` : BASE_PATH;
+    if (router) {
+      void router.push(path);
+      return;
+    }
+    if (typeof window === "undefined") return;
     window.history.pushState({}, "", path);
-    setRouteSegment(segment);
+    setFallbackPathname(path);
   };
 
   if (isLoading && !sharedState) {

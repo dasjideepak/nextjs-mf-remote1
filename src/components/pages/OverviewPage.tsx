@@ -1,9 +1,10 @@
-import { Card, Badge } from "@dasjideepak/mf-shared-ui";
-import type { SharedDashboardState } from "@dasjideepak/mf-shared-ui";
+import { Card, Badge, SectionHeader } from "@dasjideepak/mf-shared-ui";
+import type { DashboardSharedState } from "@/types/hostGlobalState";
 import type { DummyUser } from "@/hooks/useUsers";
+import Image from "next/image";
 
 interface OverviewPageProps {
-  sharedState: SharedDashboardState;
+  sharedState: DashboardSharedState;
   users: DummyUser[];
   usersLoading: boolean;
 }
@@ -24,14 +25,12 @@ export function OverviewPage({
 }: OverviewPageProps) {
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-xl font-bold text-gray-900">Customer Overview</h2>
-        <p className="mt-1 text-sm text-gray-500">
-          Welcome to your customer dashboard.
-        </p>
-      </div>
+      <SectionHeader
+        title="Customer Overview"
+        description="Welcome to your customer dashboard."
+      />
 
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2">
         <StatCard
           label="Total Users"
           value={usersLoading ? "..." : users.length}
@@ -40,7 +39,6 @@ export function OverviewPage({
           label="Notifications"
           value={sharedState.notifications.length}
         />
-        <StatCard label="Theme" value={sharedState.theme} />
       </div>
 
       <Card title="Recent Users" subtitle="First 5 users from the API">
@@ -57,9 +55,11 @@ export function OverviewPage({
               ))
             : users.slice(0, 5).map((u) => (
                 <div key={u.id} className="flex items-center gap-3 py-3">
-                  <img
+                  <Image
                     src={u.image}
                     alt=""
+                    width={36}
+                    height={36}
                     className="h-9 w-9 rounded-full bg-gray-100 object-cover"
                   />
                   <div className="min-w-0 flex-1">

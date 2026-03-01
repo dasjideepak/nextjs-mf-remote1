@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
-import ErrorBoundary from "@/components/ErrorBoundary";
+import { createStandaloneSharedStateFallback } from "@/state/standaloneSharedState";
+import { AppErrorBoundary } from "@dasjideepak/mf-shared-ui";
 
 const DashboardShell = dynamic(() => import("@/components/DashboardShell"), {
   ssr: false,
@@ -9,15 +10,6 @@ const DashboardShell = dynamic(() => import("@/components/DashboardShell"), {
     </div>
   ),
 });
-
-const standaloneFallback = {
-  theme: "light" as const,
-  toggleTheme: () => {},
-  notifications: [],
-  addNotification: () => {},
-  dismissNotification: () => {},
-  clearNotifications: () => {},
-};
 
 export default function Home() {
   return (
@@ -32,7 +24,9 @@ export default function Home() {
         </div>
       </header>
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <ErrorBoundary><DashboardShell sharedState={standaloneFallback} /></ErrorBoundary>
+        <AppErrorBoundary>
+          <DashboardShell sharedState={createStandaloneSharedStateFallback()} />
+        </AppErrorBoundary>
       </main>
     </div>
   );

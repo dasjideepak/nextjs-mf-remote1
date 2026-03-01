@@ -1,16 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import type { HostGlobalState } from "@/types/hostGlobalState";
 
-export interface GlobalState {
-  count: number;
-  increment: () => void;
-  decrement: () => void;
-  setCount: (value: number) => void;
-}
-
-export type GlobalStateContext = React.Context<GlobalState | undefined>;
+export type GlobalStateContext = React.Context<HostGlobalState | undefined>;
 
 const FallbackGlobalStateContext: GlobalStateContext = createContext<
-  GlobalState | undefined
+  HostGlobalState | undefined
 >(undefined);
 
 let hostContextPromise: Promise<GlobalStateContext | null> | null = null;
@@ -39,7 +33,7 @@ function getHostContext() {
 
 export interface UseSharedGlobalStateResult {
   isLoading: boolean;
-  state: GlobalState | undefined;
+  state: HostGlobalState | undefined;
 }
 
 export function useSharedGlobalState(): UseSharedGlobalStateResult {

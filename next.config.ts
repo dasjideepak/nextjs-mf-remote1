@@ -4,6 +4,14 @@ import NextFederationPlugin from "@module-federation/nextjs-mf";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   transpilePackages: ["@dasjideepak/mf-shared-ui"],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "dummyjson.com",
+      },
+    ],
+  },
 
   webpack(config, { isServer }) {
     const location = isServer ? "ssr" : "chunks";

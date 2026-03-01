@@ -1,14 +1,12 @@
-import { Card } from "@dasjideepak/mf-shared-ui";
+import { Card, SectionHeader } from "@dasjideepak/mf-shared-ui";
 
 export function ProfilePage() {
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-xl font-bold text-gray-900">Customer Profile</h2>
-        <p className="mt-1 text-sm text-gray-500">
-          This page is fully owned by remote1.
-        </p>
-      </div>
+      <SectionHeader
+        title="Customer Profile"
+        description="This page is fully owned by remote1."
+      />
 
       <Card>
         <div className="flex items-center gap-4">
