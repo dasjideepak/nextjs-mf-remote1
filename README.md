@@ -11,6 +11,57 @@ Install dependencies:
 npm install
 ```
 
+## Using private GitHub Packages
+
+This app installs `@dasjideepak/*` packages from GitHub Packages and requires auth.
+
+### 1) Generate a GitHub token
+
+Create a Personal Access Token (classic):
+
+1. GitHub -> `Settings` -> `Developer settings` -> `Personal access tokens` -> `Tokens (classic)`
+2. Click `Generate new token (classic)`
+3. Select scopes:
+   - `read:packages` (required to install private packages)
+   - `repo` (required when package/repository is private)
+   - `write:packages` (only needed for publishing)
+4. Copy and store the token securely.
+
+### 2) Configure local auth
+
+This repo expects:
+
+- `GITHUB_PACKAGES_TOKEN`
+
+This app's `.npmrc` uses it:
+
+```ini
+@dasjideepak:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_TOKEN}
+```
+
+Set token before install:
+
+```bash
+export GITHUB_PACKAGES_TOKEN=ghp_xxx_your_token_here
+npm install
+```
+
+### 3) Configure in Vercel
+
+In Vercel project settings for `remote1`:
+
+1. Go to `Settings` -> `Environment Variables`
+2. Add `GITHUB_PACKAGES_TOKEN`
+3. Apply to `Production`, `Preview`, and `Development` as needed
+4. Redeploy to apply changes
+
+### 4) Security notes
+
+- Never commit tokens to Git.
+- Rotate token immediately if exposed.
+- Use least privilege (`read:packages` + `repo` for consumers).
+
 Run in development:
 
 ```bash
