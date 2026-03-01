@@ -1,7 +1,7 @@
 # remote1 (Next.js Module Federation Remote)
 
 This app is a **Module Federation remote** built with Next.js.
-It exposes the `DashboardApp` component for host applications.
+It exposes the `DashboardShell` module for host applications.
 
 ## Getting Started
 
@@ -39,7 +39,7 @@ npm run lint
 
 - Remote name: `remote1`
 - Remote entry file: `static/chunks/remoteEntry.js`
-- Exposed module: `./DashboardApp` -> `./src/components/DashboardApp`
+- Exposed module: `./DashboardShell` -> `./src/components/DashboardShell`
 - Shared singleton deps: `react`, `react-dom`
 
 ## Strict Rules (Must Follow)

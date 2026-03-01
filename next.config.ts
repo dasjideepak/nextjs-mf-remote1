@@ -3,6 +3,7 @@ import NextFederationPlugin from "@module-federation/nextjs-mf";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  transpilePackages: ["@dasjideepak/mf-shared-ui"],
 
   webpack(config, { isServer }) {
     const location = isServer ? "ssr" : "chunks";
@@ -17,7 +18,7 @@ const nextConfig: NextConfig = {
               host: `host@${process.env.HOST_URL}/_next/static/${location}/remoteEntry.js`,
             },
         exposes: {
-          "./DashboardApp": "./src/components/DashboardApp",
+          "./DashboardShell": "./src/components/DashboardShell",
         },
         shared: isServer
           ? {}
