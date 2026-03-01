@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import { createStandaloneSharedStateFallback } from "@/state/standaloneSharedState";
-import { AppErrorBoundary } from "@dasjideepak/mf-shared-ui/AppErrorBoundary";
+import { AppErrorBoundary } from "@dasjideepak/mf-shared-ui";
 
 const DashboardShell = dynamic(() => import("@/components/DashboardShell"), {
   ssr: false,
