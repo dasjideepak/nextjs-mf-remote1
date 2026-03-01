@@ -12,11 +12,9 @@ const nextConfig: NextConfig = {
       new NextFederationPlugin({
         name: "remote1",
         filename: "static/chunks/remoteEntry.js",
-        remotes: isServer
-          ? {}
-          : {
-              host: `host@${process.env.HOST_URL}/_next/static/${location}/remoteEntry.js`,
-            },
+        remotes: {
+          host: `host@${process.env.HOST_URL}/_next/static/${location}/remoteEntry.js`,
+        },
         exposes: {
           "./DashboardShell": "./src/components/DashboardShell",
         },
